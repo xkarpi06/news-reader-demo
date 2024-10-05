@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.elongaassignmentapp.di.appModule
 import com.example.elongaassignmentapp.ui.screen.article.ArticleScreen
 import com.example.elongaassignmentapp.ui.screen.login.LoginScreen
@@ -53,7 +54,10 @@ internal fun AppNavigation(
     NavHost(navController = navController, startDestination = Route.Login, modifier = modifier) {
         composable<Route.Login> { LoginScreen(navController) }
         composable<Route.News> { NewsScreen(navController) }
-        composable<Route.Article> { ArticleScreen(navController) }
+        composable<Route.Article> { navBackStackEntry ->
+            val article: Route.Article = navBackStackEntry.toRoute()
+            ArticleScreen(navController, article.articleId)
+        }
     }
 }
 
@@ -63,5 +67,5 @@ internal object Route {
     @Serializable
     object News
     @Serializable
-    object Article
+    data class Article(val articleId: String)
 }
