@@ -6,7 +6,7 @@ data class Article(
     @SerializedName("article_id") val articleId: String,
     val title: String? = null,
     val link: String? = null,
-    val creator: String? = null,
+    val creator: List<String>? = null,
     val description: String? = null,
     val pubDate: String? = null,
     val imageUrl: String? = null,

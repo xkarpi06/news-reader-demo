@@ -1,6 +1,5 @@
 package com.example.elongaassignmentapp.di
 
-import com.example.elongaassignmentapp.data.api.NewsApi
 import com.example.elongaassignmentapp.data.repository.LoginRepository
 import com.example.elongaassignmentapp.data.repository.LoginRepositoryImpl
 import com.example.elongaassignmentapp.data.repository.NewsRepository
@@ -13,11 +12,9 @@ import com.example.elongaassignmentapp.ui.screen.news.NewsViewModel
 import com.example.elongaassignmentapp.ui.screen.news.NewsViewModelImpl
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
-    single<NewsRepository> { NewsRepositoryImpl() }
+    single<NewsRepository> { NewsRepositoryImpl(newsApi = get()) }
     single<LoginRepository> { LoginRepositoryImpl() }
 
     viewModel<NewsViewModel> {
@@ -37,17 +34,5 @@ val appModule = module {
             articleId = articleId,
             newsRepository = get()
         )
-    }
-
-    single {
-        Retrofit.Builder()
-            .baseUrl("https://newsdata.io")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-    single<NewsApi> {
-        val retrofit: Retrofit = get()
-        retrofit.create(NewsApi::class.java)
     }
 }

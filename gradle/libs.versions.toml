@@ -11,7 +11,8 @@ composeBom = "2024.09.03"
 navigationCompose = "2.8.2"
 serialization = "1.7.1"
 koin = "4.0.0"
-okhttp = "4.9.1"
+okhttp = "4.11.0"
+okhttpInterceptor = "4.9.3"
 retrofit = "2.9.0"
 
 [libraries]
@@ -35,6 +36,7 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 com-squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp"}
+com-squareup-okhttp3-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpInterceptor"}
 com-squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 com-squareup-retrofit2-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
 

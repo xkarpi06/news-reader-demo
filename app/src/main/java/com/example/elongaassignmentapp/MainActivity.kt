@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.elongaassignmentapp.di.appModule
+import com.example.elongaassignmentapp.di.networkModule
 import com.example.elongaassignmentapp.ui.screen.article.ArticleScreen
 import com.example.elongaassignmentapp.ui.screen.login.LoginScreen
 import com.example.elongaassignmentapp.ui.screen.news.NewsScreen
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
         startKoin{
             androidLogger()
             androidContext(this@MainActivity)
-            modules(appModule)
+            modules(listOf(appModule, networkModule))
         }
 
         setContent {
