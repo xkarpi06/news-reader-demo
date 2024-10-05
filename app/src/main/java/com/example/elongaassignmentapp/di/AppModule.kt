@@ -10,7 +10,7 @@ import com.example.elongaassignmentapp.ui.screen.login.LoginViewModel
 import com.example.elongaassignmentapp.ui.screen.login.LoginViewModelImpl
 import com.example.elongaassignmentapp.ui.screen.news.NewsViewModel
 import com.example.elongaassignmentapp.ui.screen.news.NewsViewModelImpl
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
