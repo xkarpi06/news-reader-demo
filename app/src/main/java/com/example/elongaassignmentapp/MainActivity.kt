@@ -26,7 +26,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-internal class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -56,7 +56,7 @@ internal class MainActivity : ComponentActivity() {
 }
 
 @Composable
-internal fun AppNavigation(
+fun AppNavigation(
     snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
@@ -71,7 +71,7 @@ internal fun AppNavigation(
     }
 }
 
-internal object Route {
+object Route {
     @Serializable
     object Login
     @Serializable

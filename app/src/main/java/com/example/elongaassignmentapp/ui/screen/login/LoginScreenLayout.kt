@@ -8,7 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.elongaassignmentapp.ui.theme.AppTheme
 
 @Composable
-internal fun LoginScreenLayout(
+fun LoginScreenLayout(
     onLoginClick: () -> Unit = {},
 ) {
     Column {

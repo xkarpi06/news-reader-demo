@@ -14,7 +14,7 @@ import com.example.elongaassignmentapp.ui.screen.news.model.NewsUIState
 import com.example.elongaassignmentapp.ui.theme.AppTheme
 
 @Composable
-internal fun NewsScreenLayout(
+fun NewsScreenLayout(
     uiState: NewsUIState,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {

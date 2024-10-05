@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-internal fun NewsScreen(
+fun NewsScreen(
     navController: NavController,
     snackbarHostState: SnackbarHostState,
 ) {

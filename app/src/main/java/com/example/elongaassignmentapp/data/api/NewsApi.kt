@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-internal interface NewsApi {
+interface NewsApi {
 
     @GET("api/1/latest")
     fun getLatestNews(
