@@ -12,16 +12,27 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.elongaassignmentapp.di.appModule
 import com.example.elongaassignmentapp.ui.screen.article.ArticleScreen
 import com.example.elongaassignmentapp.ui.screen.login.LoginScreen
 import com.example.elongaassignmentapp.ui.screen.news.NewsScreen
 import com.example.elongaassignmentapp.ui.theme.AppTheme
 import kotlinx.serialization.Serializable
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 
 internal class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        startKoin{
+            androidLogger()
+            androidContext(this@MainActivity)
+            modules(appModule)
+        }
+
         setContent {
             AppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
