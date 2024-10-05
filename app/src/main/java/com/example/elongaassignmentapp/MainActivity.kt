@@ -7,7 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -35,10 +38,16 @@ internal class MainActivity : ComponentActivity() {
         }
 
         setContent {
+            val snackbarHostState = remember { SnackbarHostState() }
+
             AppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    snackbarHost = { SnackbarHost(snackbarHostState) },
+                ) { innerPadding ->
                     AppNavigation(
-                        modifier = Modifier.padding(innerPadding)
+                        snackbarHostState = snackbarHostState,
+                        modifier = Modifier.padding(innerPadding),
                     )
                 }
             }
@@ -48,15 +57,16 @@ internal class MainActivity : ComponentActivity() {
 
 @Composable
 internal fun AppNavigation(
+    snackbarHostState: SnackbarHostState,
     modifier: Modifier = Modifier
 ) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Route.Login, modifier = modifier) {
         composable<Route.Login> { LoginScreen(navController) }
-        composable<Route.News> { NewsScreen(navController) }
+        composable<Route.News> { NewsScreen(navController, snackbarHostState) }
         composable<Route.Article> { navBackStackEntry ->
             val article: Route.Article = navBackStackEntry.toRoute()
-            ArticleScreen(navController, article.articleId)
+            ArticleScreen(navController, snackbarHostState, article.articleId)
         }
     }
 }
