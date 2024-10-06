@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
-internal abstract class ArticleViewModel : ViewModel() {
+abstract class ArticleViewModel : ViewModel() {
     abstract val uiState: ArticleUIState
     abstract val oneTimeEvent: SharedFlow<ArticleUIEvent>
     abstract fun onRefresh()
 }
 
-internal class ArticleViewModelImpl(
+class ArticleViewModelImpl(
     private val articleId: String,
     private val newsRepository: NewsRepository
 ) : ArticleViewModel() {

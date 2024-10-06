@@ -1,14 +1,25 @@
 package com.example.elongaassignmentapp.data.repository
 
+import com.example.elongaassignmentapp.BuildConfig
+import com.example.elongaassignmentapp.data.api.NewsApi
+import com.example.elongaassignmentapp.data.helper.handleApiCall
 import com.example.elongaassignmentapp.domain.model.Article
+import com.example.elongaassignmentapp.domain.model.Result
+import retrofit2.await
 
 interface NewsRepository {
-    suspend fun fetchLatestNews(): List<Article>
+    suspend fun fetchLatestNews(): Result<List<Article>>
 }
 
-class NewsRepositoryImpl : NewsRepository {
-    override suspend fun fetchLatestNews(): List<Article> {
-        // Fetch the latest news here
-        return listOf() // TODO: implement
+class NewsRepositoryImpl(
+    private val newsApi: NewsApi,
+) : NewsRepository {
+    override suspend fun fetchLatestNews(): Result<List<Article>> {
+        return handleApiCall {
+            newsApi.getLatestNews(apiKey = BuildConfig.NEWS_API_KEY)
+                .await()
+                .results
+        }
+        // TODO: create class NewsResponse(totalResults, results[], nextPage)
     }
 }

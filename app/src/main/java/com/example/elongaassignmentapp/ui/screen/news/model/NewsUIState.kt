@@ -11,15 +11,14 @@ sealed class NewsUIState {
         override val isRefreshing: Boolean = false
     ) : NewsUIState()
     data class Error(
-        val message: String,
         override val isRefreshing: Boolean = false
     ) : NewsUIState()
 }
 
-fun NewsUIState.setRefreshingTrue(): NewsUIState {
+fun NewsUIState.setRefreshing(value: Boolean): NewsUIState {
     return when (this) {
-        is NewsUIState.Idle -> this.copy(isRefreshing = true)
-        is NewsUIState.Success -> this.copy(isRefreshing = true)
-        is NewsUIState.Error -> this.copy(isRefreshing = true)
+        is NewsUIState.Idle -> this.copy(isRefreshing = value)
+        is NewsUIState.Success -> this.copy(isRefreshing = value)
+        is NewsUIState.Error -> this.copy(isRefreshing = value)
     }
 }

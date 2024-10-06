@@ -1,40 +1,52 @@
 package com.example.elongaassignmentapp.ui.screen.news
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.elongaassignmentapp.ui.preview.PreviewData
+import com.example.elongaassignmentapp.ui.screen.news.component.NewsItem
 import com.example.elongaassignmentapp.ui.screen.news.model.NewsUIState
 import com.example.elongaassignmentapp.ui.theme.AppTheme
 
 @Composable
-internal fun NewsScreenLayout(
+fun NewsScreenLayout(
     uiState: NewsUIState,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (uiState.isRefreshing) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
-        Column {
-            Text(text = "News Screen")
-            when (uiState) {
-                is NewsUIState.Idle -> {}
+        when (uiState) {
+            is NewsUIState.Idle -> {}
 
-                is NewsUIState.Success -> {
-                    uiState.news.forEach { news ->
-                        Text(text = news.title ?: "")
+            is NewsUIState.Success -> {
+                LazyColumn {
+                    items(uiState.news) { article ->
+                        NewsItem(
+                            article = article,
+                            modifier = Modifier.fillMaxWidth(),
+                            onClick = {/* TODO: redirect to detail */}
+                        )
+                        HorizontalDivider(
+                            modifier = Modifier.padding(start = 126.dp, end = 10.dp)
+                        )
                     }
                 }
+            }
 
-                is NewsUIState.Error -> {
-                    Text(text = uiState.message)
-                }
+            is NewsUIState.Error -> {
+                Text(text = "Failed to load news")
             }
         }
     }
@@ -55,7 +67,7 @@ private fun LoadingPreview() {
 private fun ErrorPreview() {
     AppTheme {
         NewsScreenLayout(
-            uiState = NewsUIState.Error("Something went wrong"),
+            uiState = NewsUIState.Error(),
         )
     }
 }

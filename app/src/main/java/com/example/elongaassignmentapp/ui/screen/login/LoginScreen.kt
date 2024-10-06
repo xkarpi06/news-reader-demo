@@ -6,7 +6,7 @@ import com.example.elongaassignmentapp.Route
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-internal fun LoginScreen(
+fun LoginScreen(
     navController: NavController
 ) {
     val viewModel: LoginViewModel = koinViewModel()

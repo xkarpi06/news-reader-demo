@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
-internal abstract class LoginViewModel : ViewModel() {
+abstract class LoginViewModel : ViewModel() {
     abstract val oneTimeEvent: SharedFlow<LoginUIEvent>
     abstract fun onLogInClick()
 }
 
-internal class LoginViewModelImpl(
+class LoginViewModelImpl(
     private val loginRepository: LoginRepository
 ) : LoginViewModel() {
 
