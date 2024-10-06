@@ -77,7 +77,7 @@ fun MainTopAppBar(navController: NavHostController) {
     val showBackButton = backStackEntry.value?.destination?.route?.endsWith(Route.Article.ROUTE) == true
 
     CenterAlignedTopAppBar(
-        title = { Text(text = "newsdata.io demo") },
+        title = { Text(text = "NewsData.io demo") },
         navigationIcon = {
             if (showBackButton) {
                 IconButton(onClick = { navController.navigateUp() }) {

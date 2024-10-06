@@ -1,17 +1,36 @@
 package com.example.elongaassignmentapp.ui.screen.article
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.elongaassignmentapp.domain.model.Article
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.example.elongaassignmentapp.R
+import com.example.elongaassignmentapp.ui.preview.PreviewData
 import com.example.elongaassignmentapp.ui.screen.article.model.ArticleUIState
 import com.example.elongaassignmentapp.ui.theme.AppTheme
+import com.example.elongaassignmentapp.ui.theme.Dimens
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun ArticleScreenLayout(
@@ -21,18 +40,91 @@ fun ArticleScreenLayout(
         if (uiState.isRefreshing) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
-        Column {
-            Text(text = "Article Screen")
-            when (uiState) {
-                is ArticleUIState.Idle -> {}
+        when (uiState) {
+            is ArticleUIState.Idle -> {}
 
-                is ArticleUIState.Success -> {
-                    Text(text = "articleId: ${uiState.article.articleId}")
-                }
+            is ArticleUIState.Success -> {
+                val scrollState = rememberScrollState()
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.M),
+                ) {
+                    // title
+                    Text(
+                        text = uiState.article.title ?: "<title>",
+                        modifier = Modifier.padding(horizontal = Dimens.News.Padding.horizontal),
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold
+                    )
 
-                is ArticleUIState.Error -> {
-                    Text(text = "Something went wrong")
+                    // author
+                    if (!uiState.article.creator.isNullOrEmpty()) {
+                        Text(
+                            text = uiState.article.creator.first().uppercase(),
+                            modifier = Modifier.padding(horizontal = Dimens.News.Padding.horizontal),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.primary,
+                            maxLines = 1,
+                        )
+                    }
+
+                    // image
+                    AsyncImage(
+                        model = uiState.article.imageUrl,
+                        contentDescription = "Article image",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16/9f),
+                        contentScale = ContentScale.Crop,
+                        fallback = painterResource(id = R.drawable.baseline_newspaper_24),
+                        placeholder = painterResource(id = R.drawable.baseline_newspaper_24),
+                    )
+
+                    // source
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = Dimens.News.Padding.horizontal),
+                        verticalAlignment = Alignment.Bottom,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                    ) {
+                        Text(
+                            text = uiState.article.sourceName ?: "<source_name>",
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.titleMedium,
+                            maxLines = 1,
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        AsyncImage(
+                            model = uiState.article.sourceIcon,
+                            contentDescription = "Source icon",
+                            modifier = Modifier.size(25.dp),
+                        )
+                    }
+
+                    // date
+                    Text(
+                        text = uiState.article.pubDate?.format(DateTimeFormatter.ofPattern("d.M. H:mm")) ?: "<date_published>",
+                        modifier = Modifier.padding(horizontal = Dimens.News.Padding.horizontal),
+                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Bold,
+                    )
+
+                    // description
+                    Text(
+                        text = uiState.article.description ?: "<description>",
+                        modifier = Modifier
+                            .padding(horizontal = Dimens.News.Padding.horizontal)
+                            .padding(bottom = 10.dp),
+                    )
                 }
+            }
+
+            is ArticleUIState.Error -> {
+                Text(text = "Failed to display article")
             }
         }
     }
@@ -63,7 +155,7 @@ private fun ErrorPreview() {
 private fun SuccessPreview() {
     AppTheme {
         ArticleScreenLayout(
-            uiState = ArticleUIState.Success(Article("abcd1234")),
+            uiState = ArticleUIState.Success(PreviewData.News.article),
         )
     }
 }
