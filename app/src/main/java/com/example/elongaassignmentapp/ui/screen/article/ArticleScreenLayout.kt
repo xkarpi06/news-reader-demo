@@ -20,12 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.elongaassignmentapp.R
+import com.example.elongaassignmentapp.ui.component.ShareButton
 import com.example.elongaassignmentapp.ui.preview.PreviewData
 import com.example.elongaassignmentapp.ui.screen.article.model.ArticleUIState
 import com.example.elongaassignmentapp.ui.theme.AppTheme
@@ -45,6 +47,7 @@ fun ArticleScreenLayout(
 
             is ArticleUIState.Success -> {
                 val scrollState = rememberScrollState()
+                val context = LocalContext.current
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -116,10 +119,21 @@ fun ArticleScreenLayout(
                     // description
                     Text(
                         text = uiState.article.description ?: "<description>",
-                        modifier = Modifier
-                            .padding(horizontal = Dimens.News.Padding.horizontal)
-                            .padding(bottom = 10.dp),
+                        modifier = Modifier.padding(horizontal = Dimens.News.Padding.horizontal),
                     )
+
+                    // share
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        ShareButton(
+                            textToShare = uiState.article.link ?: "",
+                            context = context,
+                            modifier = Modifier.padding(bottom = Dimens.L),
+                            enabled = uiState.article.link != null,
+                        )
+                    }
                 }
             }
 
