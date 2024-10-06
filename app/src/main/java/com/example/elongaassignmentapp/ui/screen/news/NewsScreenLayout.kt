@@ -33,7 +33,7 @@ fun NewsScreenLayout(
                 }
 
                 is NewsUIState.Error -> {
-                    Text(text = uiState.message)
+                    Text(text = "Failed to load news")
                 }
             }
         }
@@ -55,7 +55,7 @@ private fun LoadingPreview() {
 private fun ErrorPreview() {
     AppTheme {
         NewsScreenLayout(
-            uiState = NewsUIState.Error("Something went wrong"),
+            uiState = NewsUIState.Error(),
         )
     }
 }

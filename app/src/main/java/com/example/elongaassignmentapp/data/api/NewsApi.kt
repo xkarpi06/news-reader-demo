@@ -7,6 +7,15 @@ import retrofit2.http.Query
 
 interface NewsApi {
 
+    /**
+     * Returns latest news by provided question and language
+     *
+     * Response codes:
+     *  x 200: Successful operation
+     *  x 401: Unauthorized
+     *  x 429: Too many requests - exceeded the rate limit for your plan
+     *  x 500: Internal server error
+     */
     @GET("api/1/latest")
     fun getLatestNews(
         @Query("apikey") apiKey: String,
