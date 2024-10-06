@@ -31,7 +31,7 @@ fun ArticleScreenLayout(
                 }
 
                 is ArticleUIState.Error -> {
-                    Text(text = uiState.message)
+                    Text(text = "Something went wrong")
                 }
             }
         }
@@ -53,7 +53,7 @@ private fun LoadingPreview() {
 private fun ErrorPreview() {
     AppTheme {
         ArticleScreenLayout(
-            uiState = ArticleUIState.Error("Something went wrong"),
+            uiState = ArticleUIState.Error(),
         )
     }
 }

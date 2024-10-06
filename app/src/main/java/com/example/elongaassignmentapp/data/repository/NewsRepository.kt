@@ -9,6 +9,7 @@ import retrofit2.await
 
 interface NewsRepository {
     suspend fun fetchLatestNews(): Result<List<Article>>
+    suspend fun fetchArticleById(articleId: String): Result<Article>
 }
 
 class NewsRepositoryImpl(
@@ -21,5 +22,13 @@ class NewsRepositoryImpl(
                 .results
         }
         // TODO: create class NewsResponse(totalResults, results[], nextPage)
+    }
+
+    override suspend fun fetchArticleById(articleId: String): Result<Article> {
+        return handleApiCall {
+            newsApi.getArticleById(apiKey = BuildConfig.NEWS_API_KEY, articleId = articleId)
+                .await()
+                .results.first()
+        }
     }
 }

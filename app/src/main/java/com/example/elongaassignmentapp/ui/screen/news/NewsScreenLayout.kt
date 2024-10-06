@@ -22,6 +22,7 @@ import com.example.elongaassignmentapp.ui.theme.AppTheme
 @Composable
 fun NewsScreenLayout(
     uiState: NewsUIState,
+    onArticleClick: (articleId: String) -> Unit = {},
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (uiState.isRefreshing) {
@@ -36,7 +37,7 @@ fun NewsScreenLayout(
                         NewsItem(
                             article = article,
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = {/* TODO: redirect to detail */}
+                            onClick = { onArticleClick(article.articleId) }
                         )
                         HorizontalDivider(
                             modifier = Modifier.padding(start = 126.dp, end = 10.dp)

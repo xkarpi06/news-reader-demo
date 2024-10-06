@@ -5,6 +5,7 @@ import androidx.compose.material3.SnackbarResult
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
+import com.example.elongaassignmentapp.Route
 import com.example.elongaassignmentapp.ui.screen.news.model.NewsUIEvent
 import org.koin.androidx.compose.koinViewModel
 
@@ -34,5 +35,6 @@ fun NewsScreen(
 
     NewsScreenLayout(
         uiState = viewModel.uiState,
+        onArticleClick = { articleId -> navController.navigate(Route.Article(articleId)) }
     )
 }

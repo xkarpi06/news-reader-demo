@@ -7,13 +7,13 @@ sealed class ArticleUIState {
 
     data class Idle(override val isRefreshing: Boolean = false) : ArticleUIState()
     data class Success(val article: Article, override val isRefreshing: Boolean = false) : ArticleUIState()
-    data class Error(val message: String, override val isRefreshing: Boolean = false) : ArticleUIState()
+    data class Error(override val isRefreshing: Boolean = false) : ArticleUIState()
 }
 
-fun ArticleUIState.setRefreshingTrue(): ArticleUIState {
+fun ArticleUIState.setRefreshing(value: Boolean): ArticleUIState {
     return when (this) {
-        is ArticleUIState.Idle -> this.copy(isRefreshing = true)
-        is ArticleUIState.Success -> this.copy(isRefreshing = true)
-        is ArticleUIState.Error -> this.copy(isRefreshing = true)
+        is ArticleUIState.Idle -> this.copy(isRefreshing = value)
+        is ArticleUIState.Success -> this.copy(isRefreshing = value)
+        is ArticleUIState.Error -> this.copy(isRefreshing = value)
     }
 }
