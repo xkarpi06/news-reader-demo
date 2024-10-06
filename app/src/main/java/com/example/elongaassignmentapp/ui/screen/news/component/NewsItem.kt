@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -73,15 +72,13 @@ fun NewsItem(
                             Text(text = it.format(DateTimeFormatter.ofPattern("d.M. H:mm")))
                             Spacer(modifier = Modifier.width(10.dp))
                         }
-                        if (!article.creator.isNullOrEmpty()) {
-                            Text(
-                                text = article.creator.first(),
-                                fontWeight = FontWeight.Bold,
-                                maxLines = 1,
-                            )
-                        }
+                        Text(
+                            text = if (!article.creator.isNullOrEmpty()) article.creator.first() else "",
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.weight(1f),
+                            maxLines = 1,
+                        )
                     }
-                    Spacer(modifier = Modifier.weight(1f))
                     Spacer(modifier = Modifier.width(10.dp))
                     AsyncImage(
                         model = article.sourceIcon,
