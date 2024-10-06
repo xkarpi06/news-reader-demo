@@ -28,6 +28,7 @@ import com.example.elongaassignmentapp.R
 import com.example.elongaassignmentapp.domain.model.Article
 import com.example.elongaassignmentapp.ui.preview.PreviewData
 import com.example.elongaassignmentapp.ui.theme.AppTheme
+import com.example.elongaassignmentapp.ui.theme.Dimens
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -41,7 +42,7 @@ fun NewsItem(
             .height(100.dp)
             .clickable(onClick = onClick),
     ) {
-        Row(modifier = Modifier.padding(10.dp)) {
+        Row(modifier = Modifier.padding(Dimens.News.Padding.horizontal)) {
             AsyncImage(
                 model = article.imageUrl,
                 contentDescription = "Article image",

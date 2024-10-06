@@ -8,12 +8,12 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.elongaassignmentapp.ui.component.Error
 import com.example.elongaassignmentapp.ui.preview.PreviewData
 import com.example.elongaassignmentapp.ui.screen.news.component.NewsItem
 import com.example.elongaassignmentapp.ui.screen.news.model.NewsUIState
@@ -22,6 +22,7 @@ import com.example.elongaassignmentapp.ui.theme.AppTheme
 @Composable
 fun NewsScreenLayout(
     uiState: NewsUIState,
+    onArticleClick: (articleId: String) -> Unit = {},
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         if (uiState.isRefreshing) {
@@ -36,7 +37,7 @@ fun NewsScreenLayout(
                         NewsItem(
                             article = article,
                             modifier = Modifier.fillMaxWidth(),
-                            onClick = {/* TODO: redirect to detail */}
+                            onClick = { onArticleClick(article.articleId) }
                         )
                         HorizontalDivider(
                             modifier = Modifier.padding(start = 126.dp, end = 10.dp)
@@ -46,7 +47,7 @@ fun NewsScreenLayout(
             }
 
             is NewsUIState.Error -> {
-                Text(text = "Failed to load news")
+                Error(modifier = Modifier.fillMaxSize())
             }
         }
     }
