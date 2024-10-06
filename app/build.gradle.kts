@@ -72,4 +72,5 @@ dependencies {
     implementation(libs.com.squareup.okhttp3.interceptor)
     implementation(libs.com.squareup.retrofit2)
     implementation(libs.com.squareup.retrofit2.gson)
+    implementation(libs.coil.kt)
 }

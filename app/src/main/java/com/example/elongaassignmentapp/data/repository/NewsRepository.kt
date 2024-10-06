@@ -12,15 +12,13 @@ interface NewsRepository {
 }
 
 class NewsRepositoryImpl(
-    private val newsApi: NewsApi
+    private val newsApi: NewsApi,
 ) : NewsRepository {
     override suspend fun fetchLatestNews(): Result<List<Article>> {
         return handleApiCall {
-            newsApi.getLatestNews(
-                apiKey = BuildConfig.NEWS_API_KEY,
-                question = "android",
-                language = "en"
-            ).await().results
+            newsApi.getLatestNews(apiKey = BuildConfig.NEWS_API_KEY)
+                .await()
+                .results
         }
         // TODO: create class NewsResponse(totalResults, results[], nextPage)
     }

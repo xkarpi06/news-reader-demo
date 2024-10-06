@@ -19,8 +19,8 @@ interface NewsApi {
     @GET("api/1/latest")
     fun getLatestNews(
         @Query("apikey") apiKey: String,
-        @Query("q") question: String,
-        @Query("language") language: String = "cs",
+        @Query("q") question: String = "android",
+        @Query("language") language: String = "en",
     ): Call<NewsDto>
 
     @GET("api/1/latest")
