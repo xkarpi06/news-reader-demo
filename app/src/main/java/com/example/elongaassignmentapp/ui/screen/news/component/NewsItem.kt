@@ -48,8 +48,7 @@ fun NewsItem(
                 contentDescription = "Article image",
                 modifier = Modifier
                     .fillMaxHeight()
-                    .width(106.dp)
-                    .alpha(0.5f),
+                    .width(106.dp),
                 fallback = painterResource(id = R.drawable.baseline_newspaper_24),
                 placeholder = painterResource(id = R.drawable.baseline_newspaper_24),
             )
@@ -85,7 +84,7 @@ fun NewsItem(
                     Spacer(modifier = Modifier.weight(1f))
                     Spacer(modifier = Modifier.width(10.dp))
                     AsyncImage(
-                        model = article.imageUrl ?: article.sourceIcon,
+                        model = article.sourceIcon,
                         contentDescription = "Source icon",
                         modifier = Modifier.size(25.dp)
                     )
