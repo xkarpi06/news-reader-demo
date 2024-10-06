@@ -10,7 +10,7 @@ data class Article(
     val creator: List<String>? = null,
     val description: String? = null,
     val pubDate: LocalDateTime? = null,
-    val imageUrl: String? = null,
+    @SerializedName("image_url") val imageUrl: String? = null,
     @SerializedName("source_name") val sourceName: String? = null,
     @SerializedName("source_icon") val sourceIcon: String? = null,
 )
