@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.elongaassignmentapp.R
+import com.example.elongaassignmentapp.ui.component.Error
 import com.example.elongaassignmentapp.ui.component.ShareButton
 import com.example.elongaassignmentapp.ui.preview.PreviewData
 import com.example.elongaassignmentapp.ui.screen.article.model.ArticleUIState
@@ -138,7 +139,7 @@ fun ArticleScreenLayout(
             }
 
             is ArticleUIState.Error -> {
-                Text(text = "Failed to display article")
+                Error(modifier = Modifier.fillMaxSize())
             }
         }
     }
