@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Elonga Assignment App</string>
+    <string name="screen_login_welcome_to_newsdata_io">Welcome to NewsData.io!</string>
+    <string name="screen_login_username">Username</string>
+    <string name="screen_login_cd_clear_username">Clear username</string>
+    <string name="screen_login_password">Password</string>
+    <string name="screen_login_cd_show_hide_password">Show/hide password</string>
+    <string name="screen_login_sign_in">Sign In</string>
+    <string name="screen_login_skip">skip</string>
+    <string name="screen_news_oops">OOPS!</string>
+    <string name="screen_news_unauthorized_message">The news are visible for signed in users only</string>
+    <string name="screen_news_take_me_back">take me back</string>
 </resources>

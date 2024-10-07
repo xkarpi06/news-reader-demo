@@ -1,13 +1,22 @@
 [versions]
 agp = "8.7.0"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.6"
 activityCompose = "1.9.2"
-composeBom = "2024.04.01"
+composeBom = "2024.09.03"
+navigationCompose = "2.8.2"
+serialization = "1.7.1"
+koin = "4.0.0"
+okhttp = "4.11.0"
+okhttpInterceptor = "4.9.3"
+retrofit = "2.9.0"
+coil = "2.7.0"
+datastore = "1.1.1"
+materialIconsExtended = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -24,9 +33,22 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
+com-squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp"}
+com-squareup-okhttp3-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpInterceptor"}
+com-squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
+com-squareup-retrofit2-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
+coil-kt = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
