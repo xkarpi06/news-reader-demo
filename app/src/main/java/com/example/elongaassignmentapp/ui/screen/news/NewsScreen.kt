@@ -17,6 +17,7 @@ fun NewsScreen(
     val viewModel: NewsViewModel = koinViewModel()
 
     LaunchedEffect(Unit) {
+        viewModel.onScreenLaunched()
         viewModel.oneTimeEvent.collect { event ->
             when (event) {
                 is NewsUIEvent.ShowSnackbar -> {
@@ -35,6 +36,7 @@ fun NewsScreen(
 
     NewsScreenLayout(
         uiState = viewModel.uiState,
-        onArticleClick = { articleId -> navController.navigate(Route.Article(articleId)) }
+        onArticleClick = { articleId -> navController.navigate(Route.Article(articleId)) },
+        onTakeMeBack = { navController.navigate(Route.Login) { popUpTo(Route.News) { inclusive = true } } },
     )
 }

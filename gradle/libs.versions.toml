@@ -15,6 +15,8 @@ okhttp = "4.11.0"
 okhttpInterceptor = "4.9.3"
 retrofit = "2.9.0"
 coil = "2.7.0"
+datastore = "1.1.1"
+materialIconsExtended = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,6 +43,8 @@ com-squareup-okhttp3-interceptor = { group = "com.squareup.okhttp3", name = "log
 com-squareup-retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 com-squareup-retrofit2-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit"}
 coil-kt = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+androidx-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "materialIconsExtended" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

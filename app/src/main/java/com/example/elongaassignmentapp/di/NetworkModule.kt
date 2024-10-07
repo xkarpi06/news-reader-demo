@@ -4,6 +4,7 @@ import com.example.elongaassignmentapp.BuildConfig
 import com.example.elongaassignmentapp.data.api.NewsApi
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializer
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -23,9 +24,20 @@ val networkModule = module {
             }
         }
 
+        // Create x-access-key interceptor
+        val xAccessKeyInterceptor = Interceptor { chain ->
+            val originalRequest = chain.request()
+            val newRequest = originalRequest
+                .newBuilder()
+                .addHeader("X-ACCESS-KEY", BuildConfig.NEWS_API_KEY)
+                .build()
+            chain.proceed(newRequest)
+        }
+
         // Create OkHttpClient with the logging interceptor
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(xAccessKeyInterceptor)
             .build()
     }
 

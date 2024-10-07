@@ -73,4 +73,6 @@ dependencies {
     implementation(libs.com.squareup.retrofit2)
     implementation(libs.com.squareup.retrofit2.gson)
     implementation(libs.coil.kt)
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.material.icons.extended)
 }

@@ -18,14 +18,12 @@ interface NewsApi {
      */
     @GET("api/1/latest")
     fun getLatestNews(
-        @Query("apikey") apiKey: String,
         @Query("q") question: String = "android",
         @Query("language") language: String = "en",
     ): Call<NewsDto>
 
     @GET("api/1/latest")
     fun getArticleById(
-        @Query("apikey") apiKey: String,
         @Query("id") articleId: String,
     ): Call<NewsDto>
 }

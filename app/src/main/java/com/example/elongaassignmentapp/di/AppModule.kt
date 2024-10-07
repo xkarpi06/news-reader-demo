@@ -1,7 +1,7 @@
 package com.example.elongaassignmentapp.di
 
-import com.example.elongaassignmentapp.data.repository.LoginRepository
-import com.example.elongaassignmentapp.data.repository.LoginRepositoryImpl
+import com.example.elongaassignmentapp.data.repository.AuthRepository
+import com.example.elongaassignmentapp.data.repository.AuthRepositoryImpl
 import com.example.elongaassignmentapp.data.repository.NewsRepository
 import com.example.elongaassignmentapp.data.repository.NewsRepositoryImpl
 import com.example.elongaassignmentapp.ui.screen.article.ArticleViewModel
@@ -15,17 +15,18 @@ import org.koin.dsl.module
 
 val appModule = module {
     single<NewsRepository> { NewsRepositoryImpl(newsApi = get()) }
-    single<LoginRepository> { LoginRepositoryImpl() }
+    single<AuthRepository> { AuthRepositoryImpl(context = get()) }
 
     viewModel<NewsViewModel> {
         NewsViewModelImpl(
+            authRepository = get(),
             newsRepository = get()
         )
     }
 
     viewModel<LoginViewModel> {
         LoginViewModelImpl(
-            loginRepository = get()
+            authRepository = get()
         )
     }
 
