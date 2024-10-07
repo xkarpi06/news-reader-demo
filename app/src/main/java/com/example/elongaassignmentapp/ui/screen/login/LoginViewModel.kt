@@ -1,7 +1,7 @@
 package com.example.elongaassignmentapp.ui.screen.login
 
 import androidx.lifecycle.ViewModel
-import com.example.elongaassignmentapp.data.repository.LoginRepository
+import com.example.elongaassignmentapp.data.repository.AuthRepository
 import com.example.elongaassignmentapp.ui.screen.login.model.LoginUIEvent
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -13,7 +13,7 @@ abstract class LoginViewModel : ViewModel() {
 }
 
 class LoginViewModelImpl(
-    private val loginRepository: LoginRepository
+    private val authRepository: AuthRepository
 ) : LoginViewModel() {
 
     // Expose SharedFlow for one-time events
