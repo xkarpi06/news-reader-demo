@@ -7,4 +7,7 @@
     <string name="screen_login_cd_show_hide_password">Show/hide password</string>
     <string name="screen_login_sign_in">Sign In</string>
     <string name="screen_login_skip">skip</string>
+    <string name="screen_news_oops">OOPS!</string>
+    <string name="screen_news_unauthorized_message">The news are visible for signed in users only</string>
+    <string name="screen_news_take_me_back">take me back</string>
 </resources>

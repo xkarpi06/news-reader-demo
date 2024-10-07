@@ -36,6 +36,7 @@ fun NewsScreen(
 
     NewsScreenLayout(
         uiState = viewModel.uiState,
-        onArticleClick = { articleId -> navController.navigate(Route.Article(articleId)) }
+        onArticleClick = { articleId -> navController.navigate(Route.Article(articleId)) },
+        onTakeMeBack = { navController.navigate(Route.Login) { popUpTo(Route.News) { inclusive = true } } },
     )
 }

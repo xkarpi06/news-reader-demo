@@ -37,11 +37,9 @@ class LoginViewModelImpl(
 
     override fun onScreenLaunched() {
         viewModelScope.launch(Dispatchers.IO) {
-            uiState = LoginUIState(isLoading = true)
             if (authRepository.isAuthorized()) {
                 _oneTimeEvent.emit(LoginUIEvent.NavigateToNews)
             }
-            uiState = LoginUIState(isLoading = false)
         }
     }
 
@@ -58,8 +56,8 @@ class LoginViewModelImpl(
         uiState = LoginUIState(isLoading = true)
         if (username == correctStaticUsername && password == correctStaticPassword) {
             viewModelScope.launch(Dispatchers.IO) {
-                _oneTimeEvent.emit(LoginUIEvent.NavigateToNews)
                 authRepository.setAuthorized(true)
+                _oneTimeEvent.emit(LoginUIEvent.NavigateToNews)
             }
         } else {
             uiState = uiState.copy(errorMessage = "Wrong credentials. Try again.")

@@ -48,14 +48,12 @@ class NewsViewModelImpl(
             if (authRepository.isAuthorized()) {
                 val result = newsRepository.fetchLatestNews()
                 if (result is Result.Success) {
-                    uiState = NewsUIState.Success(result.data, false)
+                    uiState = NewsUIState.Success(result.data)
                 } else {
                     handleFailedRequest(result)
                 }
             } else {
-                _oneTimeEvent.emit(NewsUIEvent.ShowSnackbar("Sign in required"))
-                uiState = NewsUIState.Error(false)
-                // TODO: handle unauthorized state on main screen
+                uiState = NewsUIState.UnAuthorized()
             }
             uiState = uiState.setRefreshing(false)
         }
@@ -68,10 +66,10 @@ class NewsViewModelImpl(
             _oneTimeEvent.emit(NewsUIEvent.ShowSnackbar("Failed to reload news"))
         } else {
             // No news loaded yet, so show error
-            uiState = NewsUIState.Error(false)
+            uiState = NewsUIState.Error()
             val snackbarText = when (result) {
                 is Result.NetworkError -> "Network error"
-                is Result.HttpError.ClientError.Unauthorized -> "Unauthorized" // TODO: prompt to login
+                is Result.HttpError.ClientError.Unauthorized -> "Unauthorized"
                 is Result.HttpError.ClientError.TooManyRequests -> "Newsdata.io plan limit exceeded"
                 is Result.HttpError.ServerError -> "Internal server error"
                 else -> "Something went wrong"
