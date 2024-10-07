@@ -48,4 +48,4 @@ This is a simple Android application that loads news articles using the [NewsDat
 
 | Login Screen | News List | Article Detail |  
 |--------------|-----------|----------------|
-| _[Login Image]_ | ![News List](./screenshots/news.png) | ![Article Detail](./screenshots/detail.png) |
+| ![Login Screen](./screenshots/login.png) | ![News List](./screenshots/news.png) | ![Article Detail](./screenshots/detail.png) |

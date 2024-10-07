@@ -104,15 +104,17 @@ fun LoginScreenLayout(
                     },
                     isError = hasUserAttemptedToLogin.value && password.value.isEmpty(),
                     trailingIcon = {
-                        IconButton(onClick = { showPassword = !showPassword }) {
-                            Icon(
-                                imageVector = if (showPassword) {
-                                    Icons.Filled.VisibilityOff
-                                } else {
-                                    Icons.Filled.Visibility
-                                },
-                                contentDescription = stringResource(R.string.screen_login_cd_show_hide_password)
-                            )
+                        if (password.value.isNotEmpty()) {
+                            IconButton(onClick = { showPassword = !showPassword }) {
+                                Icon(
+                                    imageVector = if (showPassword) {
+                                        Icons.Filled.VisibilityOff
+                                    } else {
+                                        Icons.Filled.Visibility
+                                    },
+                                    contentDescription = stringResource(R.string.screen_login_cd_show_hide_password)
+                                )
+                            }
                         }
                     },
                 )
@@ -135,16 +137,13 @@ fun LoginScreenLayout(
                             onUserAction(LoginUserAction.Authenticate(username.value, password.value))
                         }
                     },
-                    modifier = Modifier.padding(top = Dimens.L)
+                    modifier = Modifier.padding(top = Dimens.M)
                 ) {
                     Text(stringResource(R.string.screen_login_sign_in))
                 }
 
                 // Skip button
-                TextButton(
-                    onClick = { onUserAction(LoginUserAction.SkipLogin) },
-                    modifier = Modifier.padding(top = Dimens.S)
-                ) {
+                TextButton(onClick = { onUserAction(LoginUserAction.SkipLogin) }) {
                     Text(stringResource(R.string.screen_login_skip))
                 }
             }
