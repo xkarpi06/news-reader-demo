@@ -5,12 +5,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.elongaassignmentapp.data.repository.AuthRepository
 import com.example.elongaassignmentapp.data.repository.NewsRepository
 import com.example.elongaassignmentapp.domain.model.Article
 import com.example.elongaassignmentapp.domain.model.Result
 import com.example.elongaassignmentapp.ui.screen.news.model.NewsUIEvent
 import com.example.elongaassignmentapp.ui.screen.news.model.NewsUIState
 import com.example.elongaassignmentapp.ui.screen.news.model.setRefreshing
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -19,10 +21,12 @@ import kotlinx.coroutines.launch
 abstract class NewsViewModel : ViewModel() {
     abstract val uiState: NewsUIState
     abstract val oneTimeEvent: SharedFlow<NewsUIEvent>
+    abstract fun onScreenLaunched()
     abstract fun onRefresh()
 }
 
 class NewsViewModelImpl(
+    private val authRepository: AuthRepository,
     private val newsRepository: NewsRepository,
 ) : NewsViewModel() {
     override var uiState by mutableStateOf<NewsUIState>(NewsUIState.Idle())
@@ -32,20 +36,26 @@ class NewsViewModelImpl(
     private val _oneTimeEvent = MutableSharedFlow<NewsUIEvent>()
     override val oneTimeEvent: SharedFlow<NewsUIEvent> = _oneTimeEvent.asSharedFlow()
 
-    init {
+    override fun onScreenLaunched() {
         refreshNews()
     }
 
     override fun onRefresh() = refreshNews()
 
     private fun refreshNews() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             uiState = uiState.setRefreshing(true)
-            val result = newsRepository.fetchLatestNews()
-            if (result is Result.Success) {
-                uiState = NewsUIState.Success(result.data, false)
-            } else  {
-                handleFailedRequest(result)
+            if (authRepository.isAuthorized()) {
+                val result = newsRepository.fetchLatestNews()
+                if (result is Result.Success) {
+                    uiState = NewsUIState.Success(result.data, false)
+                } else {
+                    handleFailedRequest(result)
+                }
+            } else {
+                _oneTimeEvent.emit(NewsUIEvent.ShowSnackbar("Sign in required"))
+                uiState = NewsUIState.Error(false)
+                // TODO: handle unauthorized state on main screen
             }
             uiState = uiState.setRefreshing(false)
         }

@@ -17,6 +17,7 @@ fun NewsScreen(
     val viewModel: NewsViewModel = koinViewModel()
 
     LaunchedEffect(Unit) {
+        viewModel.onScreenLaunched()
         viewModel.oneTimeEvent.collect { event ->
             when (event) {
                 is NewsUIEvent.ShowSnackbar -> {

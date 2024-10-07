@@ -19,6 +19,7 @@ val appModule = module {
 
     viewModel<NewsViewModel> {
         NewsViewModelImpl(
+            authRepository = get(),
             newsRepository = get()
         )
     }
