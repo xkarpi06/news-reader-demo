@@ -13,9 +13,8 @@ fun LoginScreen(
 ) {
     val viewModel: LoginViewModel = koinViewModel()
 
-    LaunchedEffect(Unit) { viewModel.onScreenLaunched() }
-
     LaunchedEffect(Unit) {
+        viewModel.onScreenLaunched()
         viewModel.oneTimeEvent.collect { event ->
             when (event) {
                 is LoginUIEvent.NavigateToNews -> {
