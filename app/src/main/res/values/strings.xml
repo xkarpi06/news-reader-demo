@@ -10,4 +10,11 @@
     <string name="screen_news_oops">OOPS!</string>
     <string name="screen_news_unauthorized_message">The news are visible for signed in users only</string>
     <string name="screen_news_take_me_back">take me back</string>
+    <string name="error_network_error">Network error</string>
+    <string name="error_unauthorized">Unauthorized</string>
+    <string name="error_plan_limit_exceeded">Newsdata.io plan limit exceeded</string>
+    <string name="error_internal_server_error">Internal server error</string>
+    <string name="error_something_went_wrong">Something went wrong</string>
+    <string name="screen_news_loading_failed">Loading failed</string>
+    <string name="screen_news_try_again">Try again</string>
 </resources>

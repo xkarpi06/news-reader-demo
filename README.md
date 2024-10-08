@@ -25,10 +25,7 @@ This is a simple Android application that loads news articles using the [NewsDat
   - Option to share the article via available apps on the device (e.g., email, social media).
 
 ## 🏅 Bonus Features (Optional)
-- Implement pagination for articles to load more news.
-- Add search functionality for users to filter news by keywords.
-- Cache news articles locally to improve performance and handle offline access.
-- Use animations or transitions for smoother user experience when navigating between screens.
+- Implement news pagination. When the user scrolls to the bottom of list, automatically load more news.
 
 ## 💻 Technologies Used
 - **Kotlin:** The primary language for Android app development.
@@ -37,6 +34,7 @@ This is a simple Android application that loads news articles using the [NewsDat
 - **Coroutines:** For handling background operations.
 - **Glide/Coil:** For loading images in news articles.
 - **Jetpack Navigation:** For managing in-app navigation between screens.
+- **Paging 3:** For managing news pagination.
 
 ## 🛠 Setup
 

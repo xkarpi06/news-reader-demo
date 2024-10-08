@@ -11,5 +11,8 @@ object Dimens {
         object Padding {
             val horizontal = 10.dp
         }
+        object Item {
+            val height = 100.dp
+        }
     }
 }
