@@ -3,12 +3,12 @@ package com.example.elongaassignmentapp.ui.screen.login
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.elongaassignmentapp.data.repository.AuthRepository
 import com.example.elongaassignmentapp.ui.screen.login.model.LoginUIEvent
 import com.example.elongaassignmentapp.ui.screen.login.model.LoginUIState
-import com.example.elongaassignmentapp.ui.screen.login.model.LoginUserAction
+import com.example.elongaassignmentapp.ui.screen.login.model.UserCredentials
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -19,7 +19,7 @@ abstract class LoginViewModel : ViewModel() {
     abstract val uiState: LoginUIState
     abstract val oneTimeEvent: SharedFlow<LoginUIEvent>
     abstract fun onScreenLaunched()
-    abstract fun onUserAction(action: LoginUserAction)
+    abstract fun onSubmit(credentials: UserCredentials)
 }
 
 class LoginViewModelImpl(
@@ -43,13 +43,8 @@ class LoginViewModelImpl(
         }
     }
 
-    override fun onUserAction(action: LoginUserAction) {
-        when (action) {
-            is LoginUserAction.Authenticate -> authenticateUser(action.user, action.password)
-            is LoginUserAction.SkipLogin -> {
-                viewModelScope.launch{ _oneTimeEvent.emit(LoginUIEvent.NavigateToNews) }
-            }
-        }
+    override fun onSubmit(credentials: UserCredentials) {
+        authenticateUser(credentials.username, credentials.password)
     }
 
     private fun authenticateUser(username: String, password: String) {

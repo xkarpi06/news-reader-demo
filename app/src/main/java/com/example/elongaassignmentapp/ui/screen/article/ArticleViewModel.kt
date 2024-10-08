@@ -53,7 +53,6 @@ class ArticleViewModelImpl(
     }
 
     private suspend fun handleFailedRequest(result: Result<Article>) {
-        // No news loaded yet, so show error
         uiState = ArticleUIState.Error(false)
         val snackbarText = when (result) {
             is Result.NetworkError -> "Network error"
