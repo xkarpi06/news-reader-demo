@@ -75,4 +75,6 @@ dependencies {
     implementation(libs.coil.kt)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
 }
