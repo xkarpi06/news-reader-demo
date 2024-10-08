@@ -20,6 +20,7 @@ interface NewsApi {
     fun getLatestNews(
         @Query("q") question: String = "android",
         @Query("language") language: String = "en",
+        @Query("page") page: String? = null, // If page is null, this query parameter will be omitted by Retrofit
     ): Call<NewsDto>
 
     @GET("api/1/latest")

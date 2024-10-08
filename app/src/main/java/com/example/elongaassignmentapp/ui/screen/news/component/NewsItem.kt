@@ -33,13 +33,33 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun NewsItem(
+    article: Article?,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
+    article?.let {
+        NewsItemLayout(
+            article = article,
+            modifier = modifier,
+            onClick = onClick,
+        )
+    } ?: NewsItemPlaceholder(modifier)
+}
+
+@Composable
+private fun NewsItemPlaceholder(modifier: Modifier = Modifier) {
+    Surface(modifier = modifier.height(Dimens.News.Item.height)) {}
+}
+
+@Composable
+private fun NewsItemLayout(
     article: Article,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {},
 ) {
     Surface(
         modifier = modifier
-            .height(100.dp)
+            .height(Dimens.News.Item.height)
             .clickable(onClick = onClick),
     ) {
         Row(modifier = Modifier.padding(Dimens.News.Padding.horizontal)) {
@@ -98,6 +118,17 @@ private fun ComponentPreview() {
     AppTheme {
         NewsItem(
             article = PreviewData.News.article,
+            modifier = Modifier.fillMaxWidth(),
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PlaceholderPreview() {
+    AppTheme {
+        NewsItem(
+            article = null,
             modifier = Modifier.fillMaxWidth(),
         )
     }

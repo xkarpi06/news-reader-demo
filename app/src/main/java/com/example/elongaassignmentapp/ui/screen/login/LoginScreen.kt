@@ -13,21 +13,21 @@ fun LoginScreen(
 ) {
     val viewModel: LoginViewModel = koinViewModel()
 
-    LaunchedEffect(Unit) { viewModel.onScreenLaunched() }
+    // navigate to news screen without possibility to go back via back button/gesture
+    fun navigateToNews() = navController.navigate(Route.News) { popUpTo(Route.Login) { inclusive = true } }
 
     LaunchedEffect(Unit) {
+        viewModel.onScreenLaunched()
         viewModel.oneTimeEvent.collect { event ->
             when (event) {
-                is LoginUIEvent.NavigateToNews -> {
-                    // navigate to main screen without possibility to go back via back button/gesture
-                    navController.navigate(Route.News) { popUpTo(Route.Login) { inclusive = true } }
-                }
+                is LoginUIEvent.NavigateToNews -> navigateToNews()
             }
         }
     }
 
     LoginScreenLayout(
         uiState = viewModel.uiState,
-        onUserAction = viewModel::onUserAction
+        onSubmit = viewModel::onSubmit,
+        onSkip = { navigateToNews() },
     )
 }
