@@ -99,7 +99,7 @@ fun AppNavigation(
 ) {
     NavHost(navController = navController, startDestination = Route.Login, modifier = modifier) {
         composable<Route.Login> { LoginScreen(navController) }
-        composable<Route.News> { NewsScreen(navController, snackbarHostState) }
+        composable<Route.News> { NewsScreen(navController) }
         composable<Route.Article> { navBackStackEntry ->
             val article: Route.Article = navBackStackEntry.toRoute()
             ArticleScreen(navController, snackbarHostState, article.articleId)
