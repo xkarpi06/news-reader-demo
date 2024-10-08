@@ -34,14 +34,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.elongaassignmentapp.R
 import com.example.elongaassignmentapp.ui.screen.login.model.LoginUIState
-import com.example.elongaassignmentapp.ui.screen.login.model.LoginUserAction
+import com.example.elongaassignmentapp.ui.screen.login.model.UserCredentials
 import com.example.elongaassignmentapp.ui.theme.AppTheme
 import com.example.elongaassignmentapp.ui.theme.Dimens
 
 @Composable
 fun LoginScreenLayout(
     uiState: LoginUIState,
-    onUserAction: (LoginUserAction) -> Unit = {},
+    onSubmit: (UserCredentials) -> Unit = {},
+    onSkip: () -> Unit = {},
 ) {
     val username = rememberSaveable { mutableStateOf("") }
     val password = rememberSaveable { mutableStateOf("") }
@@ -134,7 +135,7 @@ fun LoginScreenLayout(
                     onClick = {
                         hasUserAttemptedToLogin.value = true
                         if (username.value.isNotEmpty() && password.value.isNotEmpty()) {
-                            onUserAction(LoginUserAction.Authenticate(username.value, password.value))
+                            onSubmit(UserCredentials(username = username.value, password = password.value))
                         }
                     },
                     modifier = Modifier.padding(top = Dimens.M)
@@ -143,7 +144,7 @@ fun LoginScreenLayout(
                 }
 
                 // Skip button
-                TextButton(onClick = { onUserAction(LoginUserAction.SkipLogin) }) {
+                TextButton(onClick = onSkip) {
                     Text(stringResource(R.string.screen_login_skip))
                 }
             }
