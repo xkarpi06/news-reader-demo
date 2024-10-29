@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Elonga Assignment App</string>
+    <string name="app_name">News Reader Demo</string>
     <string name="screen_login_welcome_to_newsdata_io">Welcome to NewsData.io!</string>
     <string name="screen_login_username">Username</string>
     <string name="screen_login_cd_clear_username">Clear username</string>

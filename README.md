@@ -8,8 +8,8 @@ This is a simple Android application that loads news articles using the [NewsDat
 
 ### 1. **Static Login**
 - Users can log in using the static credentials:
-  - **Email:** `elonga@elonga.com`
-  - **Password:** `ElongaTheBest`
+  - **Email:** `news@demo.com`
+  - **Password:** `Demo1234`
 - If the credentials are correct, the app attaches an API key (X-ACCESS-KEY) to requests to the NewsData.io API.
 - If the user skips the login, the news feed will not load, and a message will be displayed on the home screen prompting them to log in.
 

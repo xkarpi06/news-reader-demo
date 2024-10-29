@@ -11,11 +11,11 @@ val localProperties = Properties()
 localProperties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
-    namespace = "com.example.elongaassignmentapp"
+    namespace = "com.example.newsreaderdemo"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.elongaassignmentapp"
+        applicationId = "com.example.newsreaderdemo"
         minSdk = 29
         targetSdk = 35
         versionCode = 1
