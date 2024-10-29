@@ -29,10 +29,12 @@ This is a simple Android application that loads news articles using the [NewsDat
 
 ## 💻 Technologies Used
 - **Kotlin:** The primary language for Android app development.
+- **Koin:** For dependency injection
 - **Retrofit:** For making API requests.
-- **ViewModel + LiveData:** To manage UI-related data lifecycle.
+- **Jetpack Compose:** For building UI
+- **ViewModel + Flows:** To manage UI-related data lifecycle.
 - **Coroutines:** For handling background operations.
-- **Glide/Coil:** For loading images in news articles.
+- **Coil:** For loading images in news articles.
 - **Jetpack Navigation:** For managing in-app navigation between screens.
 - **Paging 3:** For managing news pagination.
 
