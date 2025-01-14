@@ -38,80 +38,93 @@ fun NewsScreenLayout(
     when (uiState) {
         is NewsUIState.Idle -> {}
 
+        is NewsUIState.ShowContent -> {
+            NewsList(uiState, onArticleClick)
+        }
+
         is NewsUIState.UnAuthorized -> {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Dimens.L),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = stringResource(R.string.screen_news_oops),
-                    color = MaterialTheme.colorScheme.primary,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                )
-                Text(
-                    text = stringResource(R.string.screen_news_unauthorized_message),
-                    modifier = Modifier.padding(top = Dimens.L)
-                )
-                Button(
-                    onClick = onTakeMeBack,
-                    modifier = Modifier.padding(top = Dimens.L)
-                ) {
-                    Text(stringResource(R.string.screen_news_take_me_back))
+            UnAuthorized(onTakeMeBack)
+        }
+    }
+}
+
+@Composable
+private fun NewsList(
+    uiState: NewsUIState.ShowContent,
+    onArticleClick: (articleId: String) -> Unit
+) {
+    val news = uiState.newsFlow.collectAsLazyPagingItems()
+
+    LazyColumn {
+        items(news.itemCount) { index ->
+            val item = news[index]
+            NewsItem(
+                article = item,
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { item?.let { onArticleClick(it.articleId) } }
+            )
+        }
+
+        // Handle loading and errors
+        when {
+            // refreshing
+            news.loadState.refresh is LoadState.Loading ||
+                    news.loadState.append is LoadState.Loading -> {
+                // Show loading spinner at the end when loading first or appending more data
+                item {
+                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                        CircularProgressIndicator(modifier = Modifier.padding(Dimens.L))
+                    }
+                }
+            }
+
+            // init loading error
+            news.loadState.refresh is LoadState.Error -> {
+                item {
+                    LoadingErrorTryAgain(
+                        errorState = news.loadState.refresh as LoadState.Error,
+                        onTryAgain = { news.retry() }
+                    )
+                }
+            }
+
+            // append loading error
+            news.loadState.append is LoadState.Error -> {
+                item {
+                    LoadingErrorTryAgain(
+                        errorState = news.loadState.append as LoadState.Error,
+                        onTryAgain = { news.retry() }
+                    )
                 }
             }
         }
+    }
+}
 
-        is NewsUIState.ShowContent -> {
-            val news = uiState.newsFlow.collectAsLazyPagingItems()
-
-            LazyColumn {
-                items(news.itemCount) { index ->
-                    val item = news[index]
-                    NewsItem(
-                        article = item,
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = { item?.let { onArticleClick(it.articleId) } }
-                    )
-                }
-
-                // Handle loading and errors
-                when {
-                    // refreshing
-                    news.loadState.refresh is LoadState.Loading ||
-                    news.loadState.append is LoadState.Loading -> {
-                        // Show loading spinner at the end when loading first or appending more data
-                        item {
-                            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                                CircularProgressIndicator(modifier = Modifier.padding(Dimens.L))
-                            }
-                        }
-                    }
-
-                    // init loading error
-                    news.loadState.refresh is LoadState.Error -> {
-                        item {
-                            LoadingErrorTryAgain(
-                                errorState = news.loadState.refresh as LoadState.Error,
-                                onTryAgain = { news.retry() }
-                            )
-                        }
-                    }
-
-                    // append loading error
-                    news.loadState.append is LoadState.Error -> {
-                        item {
-                            LoadingErrorTryAgain(
-                                errorState = news.loadState.append as LoadState.Error,
-                                onTryAgain = { news.retry() }
-                            )
-                        }
-                    }
-                }
-            }
+@Composable
+private fun UnAuthorized(onTakeMeBack: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(Dimens.L),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = stringResource(R.string.screen_news_oops),
+            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+        )
+        Text(
+            text = stringResource(R.string.screen_news_unauthorized_message),
+            modifier = Modifier.padding(top = Dimens.L)
+        )
+        Button(
+            onClick = onTakeMeBack,
+            modifier = Modifier.padding(top = Dimens.L)
+        ) {
+            Text(stringResource(R.string.screen_news_take_me_back))
         }
     }
 }
