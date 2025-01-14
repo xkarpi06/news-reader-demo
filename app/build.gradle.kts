@@ -12,7 +12,7 @@ localProperties.load(project.rootProject.file("local.properties").inputStream())
 
 android {
     namespace = "com.example.newsreaderdemo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.newsreaderdemo"

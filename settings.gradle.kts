@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Elonga Assignment App"
+rootProject.name = "News Reader Demo App"
 include(":app")
  
